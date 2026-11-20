@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evolusi Mobil Formula 1 (1950 - 2026)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Titillium+Web:ital,wght@0,400;0,700;1,700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --f1-red: #e10600;
+            --f1-dark: #15151e;
+            --f1-card: #1f1f2b;
+            --f1-light: #f3f3f5;
+            --f1-gray: #94949e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--f1-dark);
+            color: var(--f1-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- HEADER --- */
+        header {
+            background-image: url(ntah.jpg);
+            padding: 60px 20px;
+            text-align: center;
+            border-bottom: 4px solid var(--f1-red);
+        }
+
+        header h1 {
+            font-family: 'Titillium Web', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            font-style: italic;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        header h1 span {
+            color: rgb(255, 255, 255);
+        }
+
+        header p {
+            color: rgb(39, 31, 31);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        /* --- TIMELINE CONTAINER --- */
+        .timeline {
+            position: relative;
+            max-width: 1150px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        /* Garis tengah vertikal */
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: var(--f1-red);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            border-radius: 2px;
+        }
+
+        /* --- BARIS TIMELINE (TEKS + GAMBAR) --- */
+        .timeline-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            margin-bottom: 60px;
+            width: 100%;
+        }
+
+        /* Membalik posisi untuk baris genap (zig-zag) */
+        .timeline-row.reverse {
+            flex-direction: row-reverse;
+        }
+
+        /* Titik lingkaran di tengah garis */
+        .timeline-row::after {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--f1-dark);
+            border: 4px solid var(--f1-red);
+            border-radius: 50%;
+            z-index: 2;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .timeline-row:hover::after {
+            background-color: var(--f1-red);
+            transform: translateX(-50%) scale(1.2);
+        }
+
+        /* Ukuran kolom kiri dan kanan masing-masing 45% */
+        .timeline-col {
+            width: 45%;
+        }
+
+        /* --- KARTU TEKS --- */
+        .content {
+            padding: 25px 30px;
+            background-color: var(--f1-card);
+            border-radius: 12px;
+            border-left: 5px solid var(--f1-red);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(225, 6, 0, 0.2);
+        }
+
+        .era-badge {
+            display: inline-block;
+            background-color: var(--f1-red);
+            color: white;
+            font-family: 'Titillium Web', sans-serif;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .content h2 {
+            font-family: 'Titillium Web', sans-serif;
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        .content p {
+            font-size: 0.95rem;
+            color: #d0d0d8;
+            margin-bottom: 15px;
+        }
+
+        .specs {
+            background-color: rgba(0, 0, 0, 0.25);
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+        }
+
+        .specs strong {
+            color: var(--f1-red);
+        }
+
+        /* --- KARTU GAMBAR --- */
+        .image-box {
+            background-color: var(--f1-card);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            border: 1px solid #2e2e3e;
+            transition: transform 0.3s ease;
+        }
+
+        .image-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .image-box img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover; /* Agar gambar proporsional dan tidak gepeng */
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .image-box:hover img {
+            transform: scale(1.05); /* Efek zoom halus saat disentuh kursor */
+        }
+
+        .image-caption {
+            padding: 10px 15px;
+            font-size: 0.85rem;
+            color: var(--f1-gray);
+            background-color: #181822;
+            text-align: center;
+            font-style: italic;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            background-color: #0b0b0f;
+            color: var(--f1-gray);
+            font-size: 0.9rem;
+            border-top: 1px solid #2c2c3a;
+        }
+
+        /* --- RESPONSIVE (TAMPILAN HP/TABLET) --- */
+        @media screen and (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .timeline::after {
+                left: 25px;
+            }
+
+            .timeline-row, .timeline-row.reverse {
+                flex-direction: column;
+                align-items: flex-end;
+                margin-bottom: 45px;
+            }
+
+            .timeline-row::after {
+                left: 25px;
+                top: 20px;
+            }
+
+            .timeline-col {
+                width: calc(100% - 55px);
+                margin-bottom: 15px;
+            }
+
+            .image-box img {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Evolusi Mobil <span>Formula 1</span></h1>
+        <p>Perjalanan inovasi teknologi, aerodinamika, dan kecepatan dari mesin depan klasik hingga era hybrid berkelanjutan.</p>
+    </header>
+
+    <div class="timeline">
+
+        <!-- Era 1950-an (Teks Kiri, Gambar Kanan) -->
+        <div class="timeline-row">
+            <div class="timeline-col">
+                <div class="content">
+                    <span class="era-badge">1950 - 1959</span>
+                    <h2>Era Mesin Depan & Cerutu</h2>
+                    <p>Mobil F1 generasi pertama memiliki bentuk menyerupai cerutu dengan mesin di bagian depan, ban tipis, dan tanpa fitur aerodinamika maupun sabuk pengaman.</p>
+                    <div class="specs">
+                        <strong>Inovasi Kunci:</strong> Sasis tubular, mesin 4.5L NA / 1.5L supercharged.<br>
+                        <strong>Mobil Ikonik:</strong> Alfa Romeo 158, Mercedes-Benz W196.
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-col">
+                <div class="image-box">
+                    <!-- Ganti URL src di bawah dengan file gambar Anda, misal: "images/f1-1950.jpg" -->
+                    <img src="gen1.jpg" alt="Mobil F1 Era 1950-an">
+                    <div class="image-caption">Desain klasik berbentuk cerutu dengan mesin di depan</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Era 1960-an (Gambar Kiri, Teks Kanan karena class="reverse") -->
+        <div class="timeline-row reverse">
+            <div class="timeline-col">
+                <div class="content">
+                    <span class="era-badge">1960 - 1969</span>
+                    <h2>Revolusi Mesin Tengah & Sayap</h2>
+                    <p>Cooper mempopulerkan mesin di belakang pembalap (mid-engine) yang mengubah distribusi bobot secara drastis. Di akhir dekade, sayap depan dan belakang mulai diperkenalkan untuk menciptakan <em>downforce</em>.</p>
+                    <div class="specs">
+                        <strong>Inovasi Kunci:</strong> Sasis monocoque aluminium (Lotus 25), sponsor komersial.<br>
+                        <strong>Mobil Ikonik:</strong> Lotus 49, Cooper T51.
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-col">
+                <div class="image-box">
+                    <img src="gen2.jpg" alt="Mobil F1 Era 1960-an">
+                    <div class="image-caption">Kemunculan sayap aerodinamika pertama di akhir tahun 1960-an</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Era 1970-an (Teks Kiri, Gambar Kanan) -->
+        <div class="timeline-row">
+            <div class="timeline-col">
+                <div class="content">
+                    <span class="era-badge">1970 - 1979</span>
+                    <h2>Era Ground Effect & Turbo</h2>
+                    <p>Lotus menemukan konsep <em>ground effect</em> yang menyedot mobil ke aspal menggunakan terowongan venturi di bawah sasis. Renault juga memperkenalkan mesin Turbo pertama di F1.</p>
+                    <div class="specs">
+                        <strong>Inovasi Kunci:</strong> Aerodinamika bawah lantai (sidepod skirts), mesin 1.5L Turbo.<br>
+                        <strong>Mobil Ikonik:</strong> Lotus 79, Ferrari 312T.
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-col">
+                <div class="image-box">
+                    <img src="g3.jpg" alt="Mobil F1 Era 1970-an">
+                    <div class="image-caption">Sidepod lebar yang memanfaatkan efek venturi di bawah mobil</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Era 1980-an (Gambar Kiri, Teks Kanan) -->
+        <div class="timeline-row reverse">
+            <div class="timeline-col">
+                <div class="content">
+                    <span class="era-badge">1980 - 1989</span>
+                    <h2>Monster Turbo & Serat Karbon</h2>
+                    <p>Era paling liar dalam tenaga mesin. Mesin 1.5L turbo mampu menghasilkan lebih dari 1.300 tenaga kuda saat kualifikasi. McLaren memperkenalkan sasis serat karbon pertama yang jauh lebih kuat dan ringan.</p>
+                    <div class="specs">
+                        <strong>Inovasi Kunci:</strong> Sasis Carbon Fiber Monocoque, suspensi aktif.<br>
+                        <strong>Mobil Ikonik:</strong> McLaren MP4/4, Williams FW11.
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-col">
+                <div class="image-box">
+                    <img src="g4.webp" alt="Mobil F1 Era 1980-an">
+                    <div class="image-caption">McLaren MP4/4, salah satu mobil turbo paling dominan dalam sejarah</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Era 1990-an & 2000-an (Teks Kiri, Gambar Kanan) -->
+        <div class="timeline-row">
+            <div class="timeline-col">
+                <div class="content">
+                    <span class="era-badge">1990 - 2008</span>
+                    <h2>Era Elektronik & Mesin V10/V8</h2>
+                    <p>Teknologi komputer mendominasi lewat girboks semi-otomatis, kontrol traksi, hingga aerodinamika kompleks penuh sirip (winglets). Suara melengking mesin V10 menjadi ciri khas era ini.</p>
+                    <div class="specs">
+                        <strong>Inovasi Kunci:</strong> Paddle-shift gearbox, perangkat HANS, aerodinamika kompleks.<br>
+                        <strong>Mobil Ikonik:</strong> Ferrari F2004, Renault R25.
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-col">
+                <div class="image-box">
+                    <img src="g5.jpg" alt="Mobil F1 Era 2000-an">
+                    <div class="image-caption">Bodi penuh sirip aerodinamika dengan mesin V10 berputaran tinggi</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Era Hybrid 2014-2025 (Gambar Kiri, Teks Kanan) -->
+        <div class="timeline-row reverse">
+            <div class="timeline-col">
+                <div class="content">
+                    <span class="era-badge">2014 - 2025</span>
+                    <h2>Era Turbo-Hybrid & Halo</h2>
+                    <p>F1 beralih ke mesin 1.6L V6 Turbo-Hybrid yang sangat efisien. Perangkat pelindung kokpit <strong>Halo</strong> diperkenalkan pada 2018 dan menyelamatkan banyak nyawa pembalap.</p>
+                    <div class="specs">
+                        <strong>Inovasi Kunci:</strong> Power Unit (MGU-K & MGU-H), DRS, Halo, Ground Effect (2022).<br>
+                        <strong>Mobil Ikonik:</strong> Mercedes W11, Red Bull RB19.
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-col">
+                <div class="image-box">
+                    <img src="g6.jpg" alt="Mobil F1 Era Hybrid">
+                    <div class="image-caption">Dilengkapi pelindung kokpit Halo dan teknologi V6 Turbo-Hybrid</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Era 2026 (Teks Kiri, Gambar Kanan) -->
+        <div class="timeline-row">
+            <div class="timeline-col">
+                <div class="content">
+                    <span class="era-badge">2026 - SEKARANG</span>
+                    <h2>Aerodinamika Aktif & Bahan Bakar Berkelanjutan</h2>
+                    <p>Regulasi baru menghadirkan mobil yang lebih ringan dan lincah. Tenaga listrik ditingkatkan hampir 300% (rasio 50:50 dengan mesin pembakaran internal) menggunakan 100% bahan bakar berkelanjutan.</p>
+                    <div class="specs">
+                        <strong>Inovasi Kunci:</strong> Active Aerodynamics (X-Mode & Z-Mode), 100% Sustainable Fuel.<br>
+                        <strong>Fokus Utama:</strong> Efisiensi energi, aksi salip-menyalip lebih ketat, dan netral karbon.
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-col">
+                <div class="image-box">
+                    <img src="g76.webp" alt="Mobil F1 Era 2026">
+                    <div class="image-caption">Dimensi mobil lebih ringkas dengan sayap aktif depan dan belakang</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>Dibuat dengan HTML5 & CSS3 &bull; Sejarah & Evolusi Teknologi Formula 1</p>
+    </footer>
+
+</body>
+</html>
